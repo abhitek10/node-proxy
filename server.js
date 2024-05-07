@@ -23,13 +23,12 @@ const options = {
     pathRewrite: { '^/old/api': '/new/api' },
     //Re-target option.target for specific requests.
     router: {
+        // Use `host` and/or `path` to match requests. First match will be used.
+        // The order of the configuration matters.
         'integration.localhost:3000': 'http://127.0.0.1:8001',  // host only
         'staging.localhost:3000': 'http://127.0.0.1:8002',  // host only
         'localhost:3000/api': 'http://127.0.0.1:8003',  // host + path
         '/rest': 'http://127.0.0.1:8004'   // path only
-    },
-    proxyReq: {
-        //function, subscribe to http-proxy's error event for custom error handling.
     },
     on: {
         proxyReq: function onProxyReq(proxyReq, req, res) {
@@ -51,8 +50,6 @@ const options = {
             res.end('Something went wrong. And we are reporting a custom error message.');
         }
     }
-    //logger: console,
-
 }
 app.use('/api', createProxyMiddleware(options));
 

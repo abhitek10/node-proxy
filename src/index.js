@@ -9,7 +9,7 @@ function getPost(){
 }
 
 function addPost() {
-    fetch('/api/postsl', {
+    fetch('/api/posts', {
         method: 'POST',
         body: JSON.stringify({
             title: 'foo',
